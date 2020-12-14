@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-function App() {
+// Traemos los hooks necesarios de react-redux
+import { useSelector, useDispatch } from "react-redux";
+
+// Traemos los action declarados anteriormente
+import { addCounter, decreaseCounter } from "./redux/actions";
+
+const App = () => {
+  // Traemos la propiedad 'count' del estado
+  const count = useSelector((state) => state.count);
+
+  // Creamos el dispatcher
+  const dispatcher = useDispatch();
+
+  // Ejecutamos el dispatcher cuando hagamos el llamado a nuestras funciones con el botón
+  const add = () => dispatcher(addCounter());
+  const decrease = () => dispatcher(decreaseCounter());
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Contador de clicks con hooks: {count}</h1>
+      <button onClick={add}>+1</button>
+      <button onClick={decrease}>-1</button>
     </div>
   );
-}
-
+};
 export default App;
